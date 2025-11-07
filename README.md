@@ -60,9 +60,8 @@ npm install axios react-plotly.js plotly.js
 
 
 Terminal 1 - Backend
-cd app
-python backend.py
-
+cd backend
+uvicorn main:app --reload
 
 
 Terminal 2 - Frontend

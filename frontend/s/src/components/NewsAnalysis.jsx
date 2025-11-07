@@ -32,7 +32,8 @@ function NewsAnalysis({ symbol1, symbol2, trigger }) {
     const pos = scores.filter((s) => s >= 0.05).length;
     const neu = scores.filter((s) => s > -0.05 && s < 0.05).length;
     const neg = scores.filter((s) => s <= -0.05).length;
-    const overall = avg >= 0.05 ? "Positive" : avg <= -0.05 ? "Negative" : "Neutral";
+    const overall =
+      avg >= 0.05 ? "Positive" : avg <= -0.05 ? "Negative" : "Neutral";
     return { avg, pos, neu, neg, overall };
   };
 
@@ -101,15 +102,14 @@ function NewsAnalysis({ symbol1, symbol2, trigger }) {
 
     return (
       <div className="space-y-6">
-        <h3 className="text-2xl font-bold text-white">
-          📰 News & Sentiment: {symbol}
+        <h3 className="text-2xl font-bold text-neutral-400">
+          News & Sentiment: <span className="text-cyan-50">{symbol}</span>
         </h3>
 
         {summary && (
           <>
-            {/* Summary Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="bg-[#0a0a0f] border border-gray-800 rounded-xl p-4 text-center hover:border-blue-500/30 transition">
+              <div className="bg-[#0a0a0f] border border-gray-800 rounded-3xl p-4 text-center hover:border-blue-500/30 transition">
                 <div className="text-xs text-gray-400 mb-1 uppercase tracking-wider">
                   Average
                 </div>
@@ -117,7 +117,7 @@ function NewsAnalysis({ symbol1, symbol2, trigger }) {
                   {summary.avg.toFixed(3)}
                 </div>
               </div>
-              <div className="bg-[#0a0a0f] border border-gray-800 rounded-xl p-4 text-center hover:border-green-500/30 transition">
+              <div className="bg-[#0a0a0f] border border-gray-800 rounded-3xl p-4 text-center hover:border-cyan-500/30 transition">
                 <div className="text-xs text-gray-400 mb-1 uppercase tracking-wider">
                   Positive
                 </div>
@@ -125,7 +125,7 @@ function NewsAnalysis({ symbol1, symbol2, trigger }) {
                   🟢 {summary.pos}
                 </div>
               </div>
-              <div className="bg-[#0a0a0f] border border-gray-800 rounded-xl p-4 text-center hover:border-yellow-500/30 transition">
+              <div className="bg-[#0a0a0f] border border-gray-800 rounded-3xl p-4 text-center hover:border-cyan-500/30 transition">
                 <div className="text-xs text-gray-400 mb-1 uppercase tracking-wider">
                   Neutral
                 </div>
@@ -133,7 +133,7 @@ function NewsAnalysis({ symbol1, symbol2, trigger }) {
                   🟡 {summary.neu}
                 </div>
               </div>
-              <div className="bg-[#0a0a0f] border border-gray-800 rounded-xl p-4 text-center hover:border-red-500/30 transition">
+              <div className="bg-[#0a0a0f] border border-gray-800 rounded-3xl p-4 text-center hover:border-red-500/30 transition">
                 <div className="text-xs text-gray-400 mb-1 uppercase tracking-wider">
                   Negative
                 </div>
@@ -144,28 +144,32 @@ function NewsAnalysis({ symbol1, symbol2, trigger }) {
             </div>
 
             {/* Gauge Chart */}
-            <div className="bg-[#0a0a0f] border border-gray-800 rounded-xl p-4">
+            <div className="bg-[#0a0a0f] border border-gray-800 rounded-3xl p-4">
               {renderGauge(summary.avg, symbol)}
             </div>
 
             {/* Sentiment Interpretation */}
             <div
-              className={`rounded-xl p-4 border ${
+              className={`rounded-3xl p-4 border ${
                 summary.overall === "Positive"
-                  ? "bg-green-500/10 border-green-500/30 text-green-300"
+                  ? "bg-green-500/10 border-green-500/30 text-green-200"
                   : summary.overall === "Negative"
                   ? "bg-red-500/10 border-red-500/30 text-red-300"
                   : "bg-blue-500/10 border-blue-500/30 text-blue-300"
               }`}
             >
               {summary.overall === "Positive" && (
-                <p className="font-semibold">✅ Positive - Favorable coverage</p>
+                <p className="font-semibold">
+                   Positive - Favorable coverage
+                </p>
               )}
               {summary.overall === "Negative" && (
-                <p className="font-semibold">⚠️ Negative - Concerning coverage</p>
+                <p className="font-semibold">
+                   Negative - Concerning coverage
+                </p>
               )}
               {summary.overall === "Neutral" && (
-                <p className="font-semibold">ℹ️ Neutral - Balanced coverage</p>
+                <p className="font-semibold">Neutral - Balanced coverage</p>
               )}
             </div>
           </>
@@ -173,14 +177,14 @@ function NewsAnalysis({ symbol1, symbol2, trigger }) {
 
         {/* Headlines */}
         <div>
-          <h4 className="text-xl font-bold text-white mb-4">🗞️ Headlines</h4>
+          <h4 className="text-xl font-bold text-white mb-4"> Headlines</h4>
           <div className="space-y-3">
             {news.map((a, i) => (
               <details
                 key={i}
-                className="bg-[#0a0a0f] border border-gray-800 rounded-xl overflow-hidden hover:border-blue-500/30 transition group"
+                className="bg-[#111] border border-gray-800 rounded-4xl overflow-hidden hover:border-cyan-100 hover:scale-101 transition group"
               >
-                <summary className="px-4 py-3 cursor-pointer flex items-start gap-3 hover:bg-[#16161f] transition">
+                <summary className="px-4 py-3 cursor-pointer flex items-start gap-3 hover:bg-cyan-500/10 transition">
                   <span className="text-lg shrink-0">
                     {a.sentiment === "Positive"
                       ? "🟢"
@@ -188,7 +192,7 @@ function NewsAnalysis({ symbol1, symbol2, trigger }) {
                       ? "🔴"
                       : "🟡"}
                   </span>
-                  <span className="font-semibold text-white flex-1">
+                  <span className="font-bold text-white flex-1 font-mono">
                     {i + 1}. {a.title || "Untitled"}
                   </span>
                 </summary>
@@ -202,11 +206,11 @@ function NewsAnalysis({ symbol1, symbol2, trigger }) {
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium text-sm transition"
                   >
-                    🔗 Read Article
+                     Read Article
                   </a>
-                  <p className="text-xs text-gray-500">
-                    Score: {(a?.score ?? 0).toFixed(3)} | {a?.publishedAt || "N/A"} |{" "}
-                    {a?.source?.name || "Unknown"}
+                  <p className="text-xs text-gray-400">
+                    Score: {(a?.score ?? 0).toFixed(3)} |{" "}
+                    {a?.publishedAt || "N/A"} | {a?.source?.name || "Unknown"}
                   </p>
                 </div>
               </details>
@@ -220,7 +224,7 @@ function NewsAnalysis({ symbol1, symbol2, trigger }) {
   return (
     <div>
       <h2 className="text-3xl font-bold bg-linear-to-r from-neutral-100 via-cyan-50 to-neutral-100 bg-clip-text text-transparent mb-6">
-         News & Sentiment Analysis
+        News & Sentiment Analysis
       </h2>
 
       <div className="space-y-8">
@@ -233,7 +237,7 @@ function NewsAnalysis({ symbol1, symbol2, trigger }) {
           </>
         ) : (
           <div className="flex items-center justify-center h-64 bg-[#0a0a0f] border border-gray-800 rounded-xl text-gray-400">
-             Add a second stock symbol for comparison
+            Add a second stock symbol for comparison
           </div>
         )}
       </div>
