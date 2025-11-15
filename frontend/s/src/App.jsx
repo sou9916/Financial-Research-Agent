@@ -2,7 +2,6 @@ import { useState,useEffect } from "react";
 import StockAnalysis from "../src/components/StockAnalysis";
 import NewsAnalysis from "../src/components/NewsAnalysis";
 import { fetchWatchlist, addToWatchlist, removeFromWatchlist } from "./api";
-import DotGrid from "./components/DotGrid";
 
 
 function App() {
