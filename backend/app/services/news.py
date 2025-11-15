@@ -1,4 +1,7 @@
 import requests
+import asyncio
+from typing import List, Dict, Any, Optional
+from app.config import settings
 
 def fetch_financial_news(symbol, api_key):
     if not api_key:
@@ -21,3 +24,31 @@ def fetch_financial_news(symbol, api_key):
         return data, None
     except Exception as e:
         return None, str(e)
+
+
+async def get_news_for_ticker(ticker: str, limit: int = 20) -> List[Dict[str, Any]]:
+    """
+    Async wrapper for fetching news for a ticker
+    Used by agent nodes
+    """
+    api_key = settings.NEWS_API_KEY
+    if not api_key:
+        return []
+    
+    # Run the sync function in a thread pool to make it async
+    loop = asyncio.get_event_loop()
+    articles, error = await loop.run_in_executor(
+        None, 
+        fetch_financial_news, 
+        ticker, 
+        api_key
+    )
+    
+    if error:
+        return []
+    
+    # Limit the results
+    if articles:
+        articles = articles[:limit]
+    
+    return articles or []

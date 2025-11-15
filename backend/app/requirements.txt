@@ -1,31 +1,50 @@
 # ---------------- CORE FRAMEWORK ----------------
-fastapi
-uvicorn[standard]
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
 
 # ---------------- DATA & FINANCE ----------------
-pandas
-yfinance
-requests
-vaderSentiment
+# Use prebuilt wheels - no compilation needed
+pandas>=2.1.0
+numpy>=1.26.0  # Will auto-install compatible version
+yfinance>=0.2.35
+requests>=2.31.0
+vaderSentiment>=3.3.2
 
 # ---------------- ASYNC & HTTP ----------------
-httpx
-aiofiles
+httpx>=0.26.0
+aiofiles>=23.2.1
 
 # ---------------- ENVIRONMENT / CONFIG ----------------
-python-dotenv
-pydantic
-pydantic-settings
+python-dotenv>=1.0.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
 
 # ---------------- DATABASE ----------------
-motor
+motor>=3.3.2
+pymongo>=4.6.0  # Motor dependency
 
 # ---------------- CACHE ----------------
-redis
+redis>=5.0.1
 
 # ---------------- TESTING ----------------
-pytest
-pytest-asyncio
+pytest>=7.4.3
+pytest-asyncio>=0.23.3
 
 # ---------------- FRONTEND ACCESS (CORS / MIDDLEWARE) ----------------
-starlette
+starlette>=0.35.0
+
+# ---------------- AI AGENTS (LANGGRAPH) ----------------
+langgraph>=0.0.62
+langchain>=0.1.6
+langchain-core>=0.1.23
+langchain-community>=0.0.20
+
+# ---------------- ADDITIONAL DEPENDENCIES ----------------
+# These are often needed but may not be explicit
+typing-extensions>=4.8.0
+annotated-types>=0.6.0
+pydantic-core>=2.14.0
+anyio>=3.7.1
+sniffio>=1.3.0
+idna>=3.6
+certifi>=2023.11.17
